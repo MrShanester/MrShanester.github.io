@@ -5,11 +5,7 @@ import * as THREE from "three";
 
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
-import { ObjectLoader } from "three";
-
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-
-import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader";
 
 // adds scene and renderer
 const scene = new THREE.Scene();
@@ -64,29 +60,29 @@ pointLight.position.set(20, 40, 20);
 pointLight.castShadow = true;
 scene.add(pointLight);
 
+const pointLight2 = new THREE.PointLight(0x00ffff);
+pointLight2.position.set(0, 30, 0);
+
+pointLight2.castShadow = true;
+scene.add(pointLight2);
+
 // creates and adds wireframe to pinpoint location of pointlight
 const lightHelper = new THREE.PointLightHelper(pointLight);
 scene.add(lightHelper);
 
-// creates grid for orientation purposes
-// const gridhelper = new THREE.GridHelper(200, 50);
-// scene.add(gridhelper);
+const lightHelper2 = new THREE.PointLightHelper(pointLight2);
+scene.add(lightHelper2);
 
-// Studio light
-// const lampLight = new OBJLoader();
-// lampLight.load("obj/lamp/studio_light.obj", function (object) {
-//   object.position.set(-50, 1, 0);
-//   // object.material.color.setHex(0xffffff);
-//   object.castShadow = true;
-//   scene.add(object);
-// });
+// camera orbit controls
+const controls = new OrbitControls(camera, renderer.domElement);
 
 // SKULLS FOR THE SKULL THRONE!!!
 var loader = new GLTFLoader();
+loader.castShadow = true;
 loader.load("obj/skull/scene.gltf", function (gltf) {
   gltf.scene.scale.set(7, 7, 7);
   gltf.scene.position.set(0, 20, 0);
-  gltf.scene.castShadow = true;
+  gltf.castShadow = true;
   scene.add(gltf.scene);
   function animate() {
     requestAnimationFrame(animate);
@@ -99,17 +95,11 @@ loader.load("obj/skull/scene.gltf", function (gltf) {
   animate();
 });
 
-// camera orbit controls
-const controls = new OrbitControls(camera, renderer.domElement);
-
 // animation recursive function
-function animate() {
-  requestAnimationFrame(animate);
-  // dice.rotation.x += 0.003;
-  // dice.rotation.y += 0.003;
-  // dice.rotation.z += 0.003;
+// function animate() {
+//   requestAnimationFrame(animate);
 
-  renderer.render(scene, camera);
-}
+//   renderer.render(scene, camera);
+// }
 
-animate();
+// animate();
