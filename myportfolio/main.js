@@ -5,6 +5,10 @@ import * as THREE from "three";
 
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
+import { ObjectLoader } from "three";
+
+import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader";
+
 // adds scene and renderer
 const scene = new THREE.Scene();
 
@@ -18,15 +22,20 @@ renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
 
 // sets camera position
-camera.position.setZ(30);
+camera.position.set(0, 30, 40);
 
 //adds scene and camera to the renderer
 renderer.render(scene, camera);
 
 //creates geometry and material for a 20-sided die
-const geometry = new THREE.IcosahedronGeometry(10, 1, 120, 1000);
+const geometry = new THREE.BoxGeometry(10, 10, 10, 10);
 const diceNormalTexture = new THREE.TextureLoader().load("img/metal_map.png");
-const material = new THREE.MeshStandardMaterial({ color: 0xff6347, wireframe: false, normalMap: diceNormalTexture });
+const material = new THREE.MeshStandardMaterial({
+  metalness: 1,
+  // clearcoat: 1.0,
+  color: 0x444444,
+  normalMap: diceNormalTexture,
+});
 const dice = new THREE.Mesh(geometry, material);
 dice.position.set(0, 20, 0);
 
@@ -45,7 +54,7 @@ plane.rotation.x = Math.PI / 2;
 scene.add(plane);
 
 //creates point light
-const pointLight = new THREE.PointLight(0xffffff);
+const pointLight = new THREE.PointLight(0xfff2cc);
 pointLight.position.set(20, 20, 20);
 
 //adds light to scene
@@ -59,13 +68,24 @@ scene.add(lightHelper);
 // const gridhelper = new THREE.GridHelper(200, 50);
 // scene.add(gridhelper);
 
+// Studio light
+const lampLight = new OBJLoader();
+lampLight.load("obj/lamp/studio_light.obj", function (object) {
+  object.position.set(-50, 1, 0);
+  // object.material.color.setHex(0xffffff);
+  scene.add(object);
+});
+
 // camera orbit controls
 const controls = new OrbitControls(camera, renderer.domElement);
 
 // animation recursive function
 function animate() {
   requestAnimationFrame(animate);
-  dice.rotation.x += 0.01;
+  dice.rotation.x += 0.003;
+  dice.rotation.y += 0.003;
+  dice.rotation.z += 0.003;
+
   renderer.render(scene, camera);
 }
 
