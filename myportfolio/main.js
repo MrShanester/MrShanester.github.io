@@ -22,8 +22,10 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 // sets camera position
 camera.position.set(0, 30, 40);
 
-//adds scene and camera to the renderer
+// adds scene and camera to the renderer
 renderer.render(scene, camera);
+
+// enables shadows
 renderer.shadowMap.enabled = true;
 
 // //creates geometry and material for a 20-sided die
@@ -53,7 +55,7 @@ plane.rotation.x = Math.PI / 2;
 plane.receiveShadow = true;
 scene.add(plane);
 
-//creates point light
+// creates point light
 const pointLight = new THREE.PointLight(0xffffff);
 pointLight.position.set(20, 40, 20);
 
@@ -83,6 +85,7 @@ loader.load("obj/skull/scene.gltf", function (gltf) {
   gltf.scene.scale.set(7, 7, 7);
   gltf.scene.position.set(0, 20, 0);
   gltf.castShadow = true;
+  // gltf.shadowMap.enable = true;
   scene.add(gltf.scene);
   function animate() {
     requestAnimationFrame(animate);
