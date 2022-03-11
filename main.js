@@ -30,6 +30,7 @@ const renderer = new THREE.WebGLRenderer({
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.shadowMap.enabled = true;
+renderer.shadowMapType = THREE.PCFSoftShadowMap;
 
 // sets camera position
 camera.position.set(0, 30, 40);
@@ -73,27 +74,33 @@ scene.add(plane);
 // ============ LIGHTS ============
 
 // creates point light
-const pointLight = new THREE.PointLight(0xffffff);
-pointLight.position.set(20, 40, 20);
+// const pointLight = new THREE.PointLight(0xffffff);
+// pointLight.position.set(20, 40, 20);
 
-pointLight.castShadow = true;
-scene.add(pointLight);
+// pointLight.castShadow = true;
+// scene.add(pointLight);
 
 const pointLight2 = new THREE.PointLight(0x00ffff);
 pointLight2.position.set(-20, 40, -20);
-
 pointLight2.castShadow = true;
+pointLight2.shadowMapWidth = 2048;
+pointLight2.shadowMapHeight = 2048;
+pointLight2.shadow.mapSize.width = 2048;
+pointLight2.shadow.mapSize.height = 2048;
 scene.add(pointLight2);
 
 const pointLight3 = new THREE.PointLight(0xf1ae14);
 pointLight3.position.set(20, 40, -20);
-
 pointLight3.castShadow = true;
+pointLight3.shadowMapWidth = 2048;
+pointLight3.shadowMapHeight = 2048;
+pointLight3.shadow.mapSize.width = 2048;
+pointLight3.shadow.mapSize.height = 2048;
 scene.add(pointLight3);
 
 // creates and adds wireframe to pinpoint location of pointlight
-const lightHelper = new THREE.PointLightHelper(pointLight);
-scene.add(lightHelper);
+// const lightHelper = new THREE.PointLightHelper(pointLight);
+// scene.add(lightHelper);
 
 const lightHelper2 = new THREE.PointLightHelper(pointLight2);
 scene.add(lightHelper2);
