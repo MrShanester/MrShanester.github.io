@@ -80,29 +80,21 @@ const controls = new OrbitControls(camera, renderer.domElement);
 
 // SKULLS FOR THE SKULL THRONE!!!
 var loader = new GLTFLoader();
-loader.castShadow = true;
 loader.load("obj/skull/scene.gltf", function (gltf) {
   gltf.scene.scale.set(7, 7, 7);
   gltf.scene.position.set(0, 20, 0);
   gltf.castShadow = true;
-  // gltf.shadowMap.enable = true;
   scene.add(gltf.scene);
-  function animate() {
-    requestAnimationFrame(animate);
-    gltf.scene.rotation.x += 0.003;
-    gltf.scene.rotation.y += 0.003;
-    gltf.scene.rotation.z += 0.003;
-
-    renderer.render(scene, camera);
-  }
-  animate();
 });
 
 // animation recursive function
-// function animate() {
-//   requestAnimationFrame(animate);
+function animate() {
+  requestAnimationFrame(animate);
+  renderer.render(scene, camera);
+}
 
-//   renderer.render(scene, camera);
-// }
+animate();
 
-// animate();
+// gltf.scene.rotation.x += 0.003;
+// gltf.scene.rotation.y += 0.003;
+// gltf.scene.rotation.z += 0.003;
