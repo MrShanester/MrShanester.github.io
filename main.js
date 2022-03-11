@@ -43,19 +43,19 @@ const controls = new OrbitControls(camera, renderer.domElement);
 // ============ SHAPES AND PLANES ============
 
 //creates geometry and material for sphere
-const geometry = new THREE.SphereGeometry(15, 32, 16);
-const sphereNormalTexture = new THREE.TextureLoader().load("./img/metal_map.png");
-const material = new THREE.MeshStandardMaterial({
-  metalness: 1,
-  // clearcoat: 1.0,
-  color: 0xffffff,
-  normalMap: sphereNormalTexture,
-});
-const sphere = new THREE.Mesh(geometry, material);
-sphere.position.set(0, 20, 0);
-sphere.castShadow = true;
-sphere.receiveShadow = true;
-scene.add(sphere);
+// const geometry = new THREE.SphereGeometry(15, 32, 16);
+// const sphereNormalTexture = new THREE.TextureLoader().load("./img/metal_map.png");
+// const material = new THREE.MeshStandardMaterial({
+//   metalness: 1,
+//   // clearcoat: 1.0,
+//   color: 0xffffff,
+//   normalMap: sphereNormalTexture,
+// });
+// const sphere = new THREE.Mesh(geometry, material);
+// sphere.position.set(0, 20, 0);
+// sphere.castShadow = true;
+// sphere.receiveShadow = true;
+// scene.add(sphere);
 
 // creates plane
 const geometry2 = new THREE.PlaneGeometry(100, 100);
@@ -85,6 +85,12 @@ pointLight2.position.set(-20, 40, -20);
 pointLight2.castShadow = true;
 scene.add(pointLight2);
 
+const pointLight3 = new THREE.PointLight(0xf1ae14);
+pointLight3.position.set(20, 40, -20);
+
+pointLight3.castShadow = true;
+scene.add(pointLight3);
+
 // creates and adds wireframe to pinpoint location of pointlight
 const lightHelper = new THREE.PointLightHelper(pointLight);
 scene.add(lightHelper);
@@ -92,16 +98,31 @@ scene.add(lightHelper);
 const lightHelper2 = new THREE.PointLightHelper(pointLight2);
 scene.add(lightHelper2);
 
+const lightHelper3 = new THREE.PointLightHelper(pointLight3);
+scene.add(lightHelper3);
+
 // ========== OBJ AND GLTF LOADERS ============
 
 // skull gltf loader
-// var loader = new GLTFLoader();
-// loader.load("obj/skull/scene.gltf", function (gltf) {
-//   gltf.scene.scale.set(7, 7, 7);
-//   gltf.scene.position.set(0, 20, 0);
-//   gltf.scene.castShadow = true;
-//   scene.add(gltf.scene);
-// });
+var loader = new GLTFLoader();
+loader.load("obj/barrels/scene.gltf", function (gltf) {
+  gltf.scene.scale.set(2, 2, 2);
+  gltf.scene.position.set(0, 20, 0);
+  gltf.scene.traverse(function (child) {
+    child.castShadow = true;
+    child.recieveShadow = true;
+  });
+  scene.add(gltf.scene);
+  function animate() {
+    requestAnimationFrame(animate);
+    gltf.scene.rotation.x += 0.003;
+    gltf.scene.rotation.y += 0.003;
+    gltf.scene.rotation.z += 0.003;
+    renderer.render(scene, camera);
+  }
+
+  animate();
+});
 
 // scaffold obj loader
 const scaffoldLoader = new OBJLoader();
@@ -119,9 +140,9 @@ scaffoldLoader.load("./obj/scaffold/Scaffolding_Set.obj", function (object) {
 // animation recursive function
 function animate() {
   requestAnimationFrame(animate);
-  sphere.rotation.x += 0.003;
-  sphere.rotation.y += 0.003;
-  sphere.rotation.z += 0.003;
+  // sphere.rotation.x += 0.003;
+  // sphere.rotation.y += 0.003;
+  // sphere.rotation.z += 0.003;
   renderer.render(scene, camera);
 }
 
