@@ -10,6 +10,8 @@ import { GLTFLoader } from "./node_modules/three/examples/jsm/loaders/GLTFLoader
 
 import { OBJLoader } from "./node_modules/three/examples/jsm/loaders/OBJLoader";
 
+import { TGALoader } from "./node_modules/three/examples/jsm/loaders/TGALoader";
+
 // ============ SCENE, CAMERA, and RENDERER SETUP ============
 
 // creates scene
@@ -42,7 +44,7 @@ const controls = new OrbitControls(camera, renderer.domElement);
 
 //creates geometry and material for sphere
 const geometry = new THREE.SphereGeometry(15, 32, 16);
-const sphereNormalTexture = new THREE.TextureLoader().load("img/metal_map.png");
+const sphereNormalTexture = new THREE.TextureLoader().load("./img/metal_map.png");
 const material = new THREE.MeshStandardMaterial({
   metalness: 1,
   // clearcoat: 1.0,
@@ -57,7 +59,7 @@ scene.add(sphere);
 
 // creates plane
 const geometry2 = new THREE.PlaneGeometry(100, 100);
-const planeNormalTexture = new THREE.TextureLoader().load("img/floor_map.png");
+const planeNormalTexture = new THREE.TextureLoader().load("./img/floor_map.png");
 const material2 = new THREE.MeshStandardMaterial({
   color: 0xffffff,
   side: THREE.DoubleSide,
@@ -103,15 +105,15 @@ scene.add(lightHelper2);
 
 // scaffold obj loader
 const scaffoldLoader = new OBJLoader();
-scaffoldLoader.load("obj/scaffold/Scaffolding_Set.obj", function (object) {
+scaffoldLoader.load("./obj/scaffold/Scaffolding_Set.obj", function (object) {
   object.traverse(function (child) {
     child.castShadow = true;
     child.recieveShadow = true;
   });
-
   object.children[26].position.set(30, 0, 50);
   scene.add(object.children[26]);
 });
+
 // ============ ANIMATION CONTROLS ============
 
 // animation recursive function
