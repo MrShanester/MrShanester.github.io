@@ -106,8 +106,11 @@ const scaffoldLoader = new OBJLoader();
 scaffoldLoader.load("obj/scaffold/Scaffolding_Set.obj", function (object) {
   object.traverse(function (child) {
     child.castShadow = true;
+    child.recieveShadow = true;
   });
-  scene.add(object);
+
+  object.children[26].position.set(30, 0, 50);
+  scene.add(object.children[26]);
 });
 // ============ ANIMATION CONTROLS ============
 
