@@ -2,13 +2,13 @@
 
 import "./style.css";
 
-import * as THREE from "three";
+import * as THREE from "./node_modules/three";
 
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import { OrbitControls } from "./node_modules/three/examples/jsm/controls/OrbitControls";
 
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+import { GLTFLoader } from "./node_modules/three/examples/jsm/loaders/GLTFLoader";
 
-import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader";
+import { OBJLoader } from "./node_modules/three/examples/jsm/loaders/OBJLoader";
 
 // ============ SCENE, CAMERA, and RENDERER SETUP ============
 
