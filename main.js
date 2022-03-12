@@ -112,7 +112,7 @@ scene.add(lightHelper3);
 
 // skull gltf loader
 var loader = new GLTFLoader();
-loader.load("obj/barrels/scene.gltf", function (gltf) {
+loader.load("obj/sledge/scene.glb", function (gltf) {
   gltf.scene.scale.set(2, 2, 2);
   gltf.scene.position.set(0, 20, 0);
   gltf.scene.traverse(function (child) {
