@@ -82,6 +82,7 @@ scene.add(plane);
 
 const pointLight2 = new THREE.PointLight(0x00ffff);
 pointLight2.position.set(-20, 40, -20);
+pointLight2.distance = 75;
 pointLight2.castShadow = true;
 pointLight2.shadowMapWidth = 2048;
 pointLight2.shadowMapHeight = 2048;
@@ -91,12 +92,24 @@ scene.add(pointLight2);
 
 const pointLight3 = new THREE.PointLight(0xf1ae14);
 pointLight3.position.set(20, 40, -20);
+pointLight3.distance = 75;
 pointLight3.castShadow = true;
 pointLight3.shadowMapWidth = 2048;
 pointLight3.shadowMapHeight = 2048;
 pointLight3.shadow.mapSize.width = 2048;
 pointLight3.shadow.mapSize.height = 2048;
 scene.add(pointLight3);
+
+const workLight = new THREE.SpotLight(0xffffff);
+workLight.position.set(0, 3.1, 0.3);
+workLight.castShadow = true;
+workLight.shadowMapWidth = 2048;
+workLight.shadowMapHeight = 2048;
+workLight.shadow.mapSize.width = 2048;
+workLight.shadow.mapSize.height = 2048;
+scene.add(workLight);
+scene.add(workLight.target);
+workLight.target.position.set(0, 3.1, 1);
 
 // creates and adds wireframe to pinpoint location of pointlight
 // const lightHelper = new THREE.PointLightHelper(pointLight);
@@ -108,27 +121,35 @@ scene.add(lightHelper2);
 const lightHelper3 = new THREE.PointLightHelper(pointLight3);
 scene.add(lightHelper3);
 
+const workLightHelper = new THREE.SpotLightHelper(workLight);
+scene.add(workLightHelper);
+
 // ========== OBJ AND GLTF LOADERS ============
 
-// skull gltf loader
+// barrel gltf loader
 var loader = new GLTFLoader();
-loader.load("obj/sledge/scene.glb", function (gltf) {
-  gltf.scene.scale.set(2, 2, 2);
-  gltf.scene.position.set(0, 20, 0);
+loader.load("obj/barrels/scene.gltf", function (gltf) {
   gltf.scene.traverse(function (child) {
     child.castShadow = true;
     child.recieveShadow = true;
   });
-  scene.add(gltf.scene);
-  function animate() {
-    requestAnimationFrame(animate);
-    gltf.scene.rotation.x += 0.003;
-    gltf.scene.rotation.y += 0.003;
-    gltf.scene.rotation.z += 0.003;
-    renderer.render(scene, camera);
-  }
+  gltf.scene.children[0].position.set(0, 1.36, 0);
+  gltf.scene.children[0].scale.set(3, 3, 3);
 
-  animate();
+  scene.add(gltf.scene.children[0]);
+});
+
+// light gltf loader
+var loader2 = new GLTFLoader();
+loader2.load("obj/work_light/scene.gltf", function (gltf) {
+  gltf.scene.traverse(function (child) {
+    child.castShadow = true;
+    child.recieveShadow = true;
+  });
+  gltf.scene.position.set(0, 2.55, 0);
+  gltf.scene.scale.set(3, 3, 3);
+
+  scene.add(gltf.scene);
 });
 
 // scaffold obj loader
