@@ -152,6 +152,19 @@ loader2.load("obj/work_light/scene.gltf", function (gltf) {
   scene.add(gltf.scene);
 });
 
+// shipping_container gltf loader
+var loader3 = new GLTFLoader();
+loader3.load("obj/shipping_container/scene.glb", function (gltf) {
+  // gltf.scene.traverse(function (child) {
+  //   child.castShadow = true;
+  //   child.recieveShadow = true;
+  // });
+  gltf.scene.position.set(10, 0, 25);
+  gltf.scene.scale.set(0.1, 0.1, 0.1);
+
+  scene.add(gltf.scene);
+});
+
 // scaffold obj loader
 const scaffoldLoader = new OBJLoader();
 scaffoldLoader.load("./obj/scaffold/Scaffolding_Set.obj", function (object) {
