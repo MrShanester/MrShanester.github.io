@@ -305,3 +305,41 @@ footer {
   text-align: center;
   margin: 2rem 0 0;
 }
+
+/* screen size responsive */
+
+@media screen and (max-width: 720px) {
+  /*changes reflects on screen with a width of 720px and below*/
+}
+
+nav {
+  padding: 1.5rem 1rem;
+}
+
+/* hamburger menu */
+nav ul {
+  position: fixed;
+  background-color: var(--bg-color);
+  flex-direction: column;
+  top: 86px;
+  left: 10%;
+  width: 80%;
+  text-align: center;
+  transform: translateX(120%);
+  transition: transform 0.5s ease-in;
+}
+
+nav ul li {
+  margin: 8px;
+}
+
+.burger-menu {
+  display: block;
+}
+
+nav ul.show {
+  transform: translateX(0);
+}
+
+/* responsive hero section */
+
